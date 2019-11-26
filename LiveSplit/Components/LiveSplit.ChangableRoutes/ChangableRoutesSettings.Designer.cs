@@ -33,6 +33,7 @@
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.tlpSettings = new System.Windows.Forms.TableLayoutPanel();
             this.chkUseRoutes = new System.Windows.Forms.CheckBox();
+            this.changableRoutesSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.grpHotkeys = new System.Windows.Forms.GroupBox();
             this.tlpHotkeys = new System.Windows.Forms.TableLayoutPanel();
             this.lblPreviousRoute = new System.Windows.Forms.Label();
@@ -68,9 +69,9 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.changableRoutesSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tlpMain.SuspendLayout();
             this.tlpSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.changableRoutesSettingsBindingSource)).BeginInit();
             this.grpHotkeys.SuspendLayout();
             this.tlpHotkeys.SuspendLayout();
             this.grpAppearance.SuspendLayout();
@@ -83,7 +84,6 @@
             this.tlpRoutes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoutes)).BeginInit();
             this.tlpButtons.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.changableRoutesSettingsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpMain
@@ -138,6 +138,10 @@
             this.toolTip1.SetToolTip(this.chkUseRoutes, "Should route switching be enabled");
             this.chkUseRoutes.UseVisualStyleBackColor = true;
             this.chkUseRoutes.CheckedChanged += new System.EventHandler(this.chkUseRoutes_CheckedChanged);
+            // 
+            // changableRoutesSettingsBindingSource
+            // 
+            this.changableRoutesSettingsBindingSource.DataSource = typeof(LiveSplit.ChangableRoutesSettings);
             // 
             // grpHotkeys
             // 
@@ -307,6 +311,7 @@
             this.btnBgColor1.TabIndex = 1;
             this.toolTip1.SetToolTip(this.btnBgColor1, "Choose the background color");
             this.btnBgColor1.UseVisualStyleBackColor = true;
+            this.btnBgColor1.Click += new System.EventHandler(this.ColorButtonClick);
             // 
             // btnBgColor2
             // 
@@ -317,12 +322,17 @@
             this.btnBgColor2.TabIndex = 2;
             this.toolTip1.SetToolTip(this.btnBgColor2, "Choose the background color");
             this.btnBgColor2.UseVisualStyleBackColor = true;
+            this.btnBgColor2.Click += new System.EventHandler(this.ColorButtonClick);
             // 
             // cmbGradientType
             // 
             this.cmbGradientType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbGradientType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGradientType.FormattingEnabled = true;
+            this.cmbGradientType.Items.AddRange(new object[] {
+            "Plain",
+            "Vertical",
+            "Horizontal"});
             this.cmbGradientType.Location = new System.Drawing.Point(211, 4);
             this.cmbGradientType.Name = "cmbGradientType";
             this.cmbGradientType.Size = new System.Drawing.Size(218, 21);
@@ -429,6 +439,7 @@
             this.btnChooseColor.TabIndex = 5;
             this.toolTip1.SetToolTip(this.btnChooseColor, "Choose a text color");
             this.btnChooseColor.UseVisualStyleBackColor = true;
+            this.btnChooseColor.Click += new System.EventHandler(this.ColorButtonClick);
             // 
             // chkShowLabel
             // 
@@ -585,10 +596,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // changableRoutesSettingsBindingSource
-            // 
-            this.changableRoutesSettingsBindingSource.DataSource = typeof(LiveSplit.ChangableRoutesSettings);
-            // 
             // ChangableRoutesSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -602,6 +609,7 @@
             this.tlpMain.PerformLayout();
             this.tlpSettings.ResumeLayout(false);
             this.tlpSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.changableRoutesSettingsBindingSource)).EndInit();
             this.grpHotkeys.ResumeLayout(false);
             this.grpHotkeys.PerformLayout();
             this.tlpHotkeys.ResumeLayout(false);
@@ -624,7 +632,6 @@
             this.tlpRoutes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoutes)).EndInit();
             this.tlpButtons.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.changableRoutesSettingsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

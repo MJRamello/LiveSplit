@@ -73,8 +73,8 @@ namespace LiveSplit
 
         public IsEnabled enableApperance { get; set; } = new IsEnabled();
 
-        public KeyOrButton NextRouteHotkey { get; set; } = new KeyOrButton(Keys.NumPad6);
-        public KeyOrButton PreviousRouteHotkey { get; set; } = new KeyOrButton(Keys.NumPad4);
+        public KeyOrButton NextRouteHotkey { get; set; } = new KeyOrButton(Keys.NumPad9);
+        public KeyOrButton PreviousRouteHotkey { get; set; } = new KeyOrButton(Keys.NumPad7);
 
         public bool RoutesEnabled { get; private set; }
 
@@ -100,7 +100,7 @@ namespace LiveSplit
                     // if the binding list doesn't have this route yet
                     if (Routes.FirstOrDefault(r => r.Path == filename) == default(Route))
                     {
-                        Routes.Add(new Route("", filename));
+                        Routes.Add(new Route(filename,""));
                     }
                 }
             }
@@ -112,6 +112,7 @@ namespace LiveSplit
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
+
         }
 
         private void chkShowLabel_CheckedChanged(object sender, EventArgs e)
@@ -159,6 +160,9 @@ namespace LiveSplit
             settingsNode.AppendChild(SettingsHelper.ToElement(doc, "NextRouteHotkey", NextRouteHotkey));
             settingsNode.AppendChild(SettingsHelper.ToElement(doc, "PreviousRouteHotkey", PreviousRouteHotkey));
 
+            
+
+
             var routesNode = doc.CreateElement("Routes");
             foreach (var route in Routes)
             {
@@ -178,6 +182,11 @@ namespace LiveSplit
         }
 
         #endregion Public Methods
+
+        private void ColorButtonClick(object sender, EventArgs e)
+        {
+            SettingsHelper.ColorButtonClick((Button)sender, this);
+        }
     }
 
     public class IsEnabled : INotifyPropertyChanged

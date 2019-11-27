@@ -116,6 +116,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveSplit.BlankSpace", "Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveSplit.ChangableRoutes", "Components\LiveSplit.ChangableRoutes\LiveSplit.ChangableRoutes.csproj", "{752BC02A-5808-471A-AD2A-F7C6F2343CEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveSplit.FocusedHotkeys", "..\..\..\..\..\Downloads\LiveSplit.FocusedHotkeys-master\LiveSplit.FocusedHotkeys.csproj", "{2307542D-1ACA-4B3C-A9CE-DCD1EDC6AA23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +317,12 @@ Global
 		{752BC02A-5808-471A-AD2A-F7C6F2343CEE}.Release Candidate|Any CPU.Build.0 = Release|Any CPU
 		{752BC02A-5808-471A-AD2A-F7C6F2343CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{752BC02A-5808-471A-AD2A-F7C6F2343CEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2307542D-1ACA-4B3C-A9CE-DCD1EDC6AA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2307542D-1ACA-4B3C-A9CE-DCD1EDC6AA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2307542D-1ACA-4B3C-A9CE-DCD1EDC6AA23}.Release Candidate|Any CPU.ActiveCfg = Release|Any CPU
+		{2307542D-1ACA-4B3C-A9CE-DCD1EDC6AA23}.Release Candidate|Any CPU.Build.0 = Release|Any CPU
+		{2307542D-1ACA-4B3C-A9CE-DCD1EDC6AA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2307542D-1ACA-4B3C-A9CE-DCD1EDC6AA23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -352,6 +360,7 @@ Global
 		{CA2C668C-1C3F-4C44-9034-99848AFE47BA} = {91298215-12A5-4194-B848-1D6ABBFC586E}
 		{825B6521-94B8-4C8A-9709-3CA2ABFE70D7} = {91298215-12A5-4194-B848-1D6ABBFC586E}
 		{752BC02A-5808-471A-AD2A-F7C6F2343CEE} = {18031338-5A00-4AFC-9476-6C491B31B66C}
+		{2307542D-1ACA-4B3C-A9CE-DCD1EDC6AA23} = {18031338-5A00-4AFC-9476-6C491B31B66C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63FB9C43-D26C-4159-82EE-CECE7D2AA44F}

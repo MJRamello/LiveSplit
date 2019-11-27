@@ -14,98 +14,23 @@ namespace LiveSplit.Model
     [Serializable]
     public class Run : IRun, INotifyPropertyChanged
     {
-        private string gameName;
+        #region Private Fields
+
         private string categoryName;
+        private string gameName;
+
+        #endregion Private Fields
+
+        #region Public Fields
 
         /// <summary>
         /// The name of the comparison used to save your Personal Best splits.
         /// </summary>
         public const string PersonalBestComparisonName = "Personal Best";
 
-        /// <summary>
-        /// This is the internal list being used to save the segments, which the run is a facade to.
-        /// </summary>
-        protected IList<ISegment> InternalList { get; set; }
+        #endregion Public Fields
 
-        /// <summary>
-        /// Gets or sets the icon of the game the run is for.
-        /// </summary>
-        public Image GameIcon { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the game the run is for.
-        /// </summary>
-        public string GameName
-        {
-            get { return gameName; }
-            set
-            {
-                gameName = value; 
-                Metadata.Refresh();
-                TriggerPropertyChanged("GameName");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the category of the run.
-        /// </summary>
-        public string CategoryName
-        {
-            get { return categoryName; }
-            set
-            {
-                categoryName = value;
-                Metadata.Refresh();
-                TriggerPropertyChanged("CategoryName");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the time where the timer starts at.
-        /// <remarks>This can be both a negative time as well to simulate a countdown.</remarks>
-        /// </summary>
-        public TimeSpan Offset { get; set; }
-
-        /// <summary>
-        /// Gets or sets the amount of times the run has been started.
-        /// </summary>
-        public int AttemptCount { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public IList<Attempt> AttemptHistory { get; set; }
-
-        public AutoSplitter AutoSplitter { get; set; }
-        public XmlElement AutoSplitterSettings { get; set; }
-
-        public IList<IComparisonGenerator> ComparisonGenerators { get; set; }
-        public IList<string> CustomComparisons { get; set; }
-        public IEnumerable<string> Comparisons => CustomComparisons.Concat(ComparisonGenerators.Select(x => x.Name));
-
-        public RunMetadata Metadata { get; private set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void TriggerPropertyChanged(string propertyName)
-        {
-            var propertyChanged = PropertyChanged;
-            propertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected IComparisonGeneratorsFactory Factory { get; set; }
-
-        public bool HasChanged { get; set; }
-        public string FilePath { get; set; }
-
-        public Run(IComparisonGeneratorsFactory factory)
-        {
-            InternalList = new List<ISegment>();
-            AttemptHistory = new List<Attempt>();
-            Factory = factory;
-            ComparisonGenerators = Factory.Create(this).ToList();
-            CustomComparisons = new List<string>() { PersonalBestComparisonName };
-            Metadata = new RunMetadata(this);
-        }
+        #region Private Constructors
 
         private Run(IEnumerable<ISegment> collection, IComparisonGeneratorsFactory factory, RunMetadata metadata)
         {
@@ -121,41 +46,138 @@ namespace LiveSplit.Model
             Metadata = metadata.Clone(this);
         }
 
-        public int IndexOf(ISegment item) => InternalList.IndexOf(item);
+        #endregion Private Constructors
 
-        public void Insert(int index, ISegment item) => InternalList.Insert(index, item);
+        #region Public Constructors
 
-        public void RemoveAt(int index) => InternalList.RemoveAt(index);
-
-        public ISegment this[int index]
+        public Run(IComparisonGeneratorsFactory factory)
         {
-            get
-            {
-                return InternalList[index];
-            }
-            set
-            {
-                InternalList[index] = value;
+            InternalList = new List<ISegment>();
+            AttemptHistory = new List<Attempt>();
+            Factory = factory;
+            ComparisonGenerators = Factory.Create(this).ToList();
+            CustomComparisons = new List<string>() { PersonalBestComparisonName };
+            Metadata = new RunMetadata(this);
+        }
+
+        #endregion Public Constructors
+
+        #region Public Events
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion Public Events
+
+        #region Protected Properties
+
+        protected IComparisonGeneratorsFactory Factory { get; set; }
+
+        /// <summary>
+        /// This is the internal list being used to save the segments, which the run is a facade to.
+        /// </summary>
+        protected IList<ISegment> InternalList { get; set; }
+
+        #endregion Protected Properties
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the amount of times the run has been started.
+        /// </summary>
+        public int AttemptCount { get; set; }
+
+        /// <summary>
+        /// </summary>
+        public IList<Attempt> AttemptHistory { get; set; }
+
+        public AutoSplitter AutoSplitter { get; set; }
+
+        public XmlElement AutoSplitterSettings { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category of the run.
+        /// </summary>
+        public string CategoryName
+        {
+            get { return categoryName; }
+            set {
+                categoryName = value;
+                Metadata.Refresh();
+                TriggerPropertyChanged("CategoryName");
             }
         }
 
-        public void Add(ISegment item) => InternalList.Add(item);
+        public IList<IComparisonGenerator> ComparisonGenerators { get; set; }
 
-        public void Clear() => InternalList.Clear();
+        public IEnumerable<string> Comparisons => CustomComparisons.Concat(ComparisonGenerators.Select(x => x.Name));
 
-        public bool Contains(ISegment item) => InternalList.Contains(item);
+        public IList<string> CustomComparisons { get; set; }
 
-        public void CopyTo(ISegment[] array, int arrayIndex) => InternalList.CopyTo(array, arrayIndex);
+        public string FilePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the icon of the game the run is for.
+        /// </summary>
+        public Image GameIcon { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the game the run is for.
+        /// </summary>
+        public string GameName
+        {
+            get { return gameName; }
+            set {
+                gameName = value;
+                Metadata.Refresh();
+                TriggerPropertyChanged("GameName");
+            }
+        }
+
+        public bool HasChanged { get; set; }
+
+        public RunMetadata Metadata { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the time where the timer starts at. <remarks>This can be both a negative
+        /// time as well to simulate a countdown.</remarks>
+        /// </summary>
+        public TimeSpan Offset { get; set; }
 
         public int Count => InternalList.Count;
 
         public bool IsReadOnly => InternalList.IsReadOnly;
 
-        public bool Remove(ISegment item) => InternalList.Remove(item);
+        #endregion Public Properties
 
-        public IEnumerator<ISegment> GetEnumerator() => InternalList.GetEnumerator();
+        #region Public Indexers
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+        public ISegment this[int index]
+        {
+            get {
+                return InternalList[index];
+            }
+            set {
+                InternalList[index] = value;
+            }
+        }
+
+        #endregion Public Indexers
+
+        #region Private Methods
+
+        private void TriggerPropertyChanged(string propertyName)
+        {
+            var propertyChanged = PropertyChanged;
+            propertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion Private Methods
+
+        #region Public Methods
+
+        public void Add(ISegment item) => InternalList.Add(item);
+
+        public void Clear() => InternalList.Clear();
 
         public Run Clone()
         {
@@ -177,6 +199,24 @@ namespace LiveSplit.Model
             return newRun;
         }
 
+        public bool Contains(ISegment item) => InternalList.Contains(item);
+
+        public void CopyTo(ISegment[] array, int arrayIndex) => InternalList.CopyTo(array, arrayIndex);
+
+        public IEnumerator<ISegment> GetEnumerator() => InternalList.GetEnumerator();
+
+        public int IndexOf(ISegment item) => InternalList.IndexOf(item);
+
+        public void Insert(int index, ISegment item) => InternalList.Insert(index, item);
+
+        public bool Remove(ISegment item) => InternalList.Remove(item);
+
+        public void RemoveAt(int index) => InternalList.RemoveAt(index);
+
         object ICloneable.Clone() => Clone();
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+        #endregion Public Methods
     }
 }
